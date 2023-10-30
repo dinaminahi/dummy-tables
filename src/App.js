@@ -47,14 +47,11 @@ function App() {
         </ul>
       </nav>
       <Routes>
-        {/* {sortedTabs.map((tab) => ( */}
-        <Route path="/" element={<LazyComponent path="tabs/dummyList" />} >
-          <Route index element={<LazyComponent path="tabs/dummyList" />} />
+      <Route path="/" element={<Navigate to="/dummyList" replace />} />
           <Route path="dummyList" element={<LazyComponent path="tabs/dummyList" />} />
           <Route path="dummyChart" element={<LazyComponent path="tabs/dummyChart" />} />
+          <Route path="dummyTable" element={<LazyComponent path="tabs/dummyTable" />} />
           <Route path="*" element={<Navigate to="/dummyList" replace />} />
-</Route>
-        {/* ))} */}
       </Routes>
     </div>
   );
