@@ -1,8 +1,15 @@
-import './App.css';
-import React, { useEffect } from 'react';
-import { Routes, Route, Link, useNavigate, useLocation, Navigate  } from 'react-router-dom';
-import tabs from './tabs.json';
-import LazyComponent from './components/LazyComponent';
+import "./App.css";
+import React, { useEffect } from "react";
+import {
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+  useLocation,
+  Navigate,
+} from "react-router-dom";
+import tabs from "./tabs.json";
+import LazyComponent from "./components/LazyComponent";
 
 function App() {
   const navigate = useNavigate();
@@ -11,18 +18,10 @@ function App() {
   const sortedTabs = tabs.slice().sort((a, b) => a.order - b.order);
 
   const getActiveTab = () => {
-    // debugger;
-    // const pathSegments = location.pathname.split('/');
-    // if (pathSegments.length === 2) {
-      // const targetTabId = pathSegments[2];
-      return sortedTabs.find((tab) => location.pathname.includes(tab.id)) || null;
-    // }
-    // return null;
+    return sortedTabs.find((tab) => location.pathname.includes(tab.id)) || null;
   };
 
-
   useEffect(() => {
-  
     const activeTab = getActiveTab();
 
     if (!activeTab) {
@@ -33,12 +32,14 @@ function App() {
   return (
     <div className="App">
       <nav>
-        <ul className='links'>
+        <ul className="links">
           {sortedTabs.map((tab) => (
             <li key={tab.id}>
               <Link
                 to={`/${tab.id}`}
-                className={location.pathname === `/${tab.id}` ? 'active-tab' : ''}
+                className={
+                  location.pathname === `/${tab.id}` ? "active-tab" : ""
+                }
               >
                 {tab.title}
               </Link>
@@ -47,11 +48,20 @@ function App() {
         </ul>
       </nav>
       <Routes>
-      <Route path="/" element={<Navigate to="/dummyList" replace />} />
-          <Route path="dummyList" element={<LazyComponent path="tabs/dummyList" />} />
-          <Route path="dummyChart" element={<LazyComponent path="tabs/dummyChart" />} />
-          <Route path="dummyTable" element={<LazyComponent path="tabs/dummyTable" />} />
-          <Route path="*" element={<Navigate to="/dummyList" replace />} />
+        <Route path="/" element={<Navigate to="/dummyList" replace />} />
+        <Route
+          path="dummyList"
+          element={<LazyComponent path="tabs/dummyList" />}
+        />
+        <Route
+          path="dummyChart"
+          element={<LazyComponent path="tabs/dummyChart" />}
+        />
+        <Route
+          path="dummyTable"
+          element={<LazyComponent path="tabs/dummyTable" />}
+        />
+        <Route path="*" element={<Navigate to="/dummyList" replace />} />
       </Routes>
     </div>
   );
